@@ -17,7 +17,7 @@ setup(
     url='https://jamesthorne.co.uk',
     description='Fact Extraction and VERification dataset reader for AllenNLP',
     long_description="readme",
-    license=license,
+    license="Apache 2.0",
     python_requires='>=3.6',
     package_dir={'fever': 'src/fever',
                  'fever.reader': 'src/fever/reader'},
