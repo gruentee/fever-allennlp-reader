@@ -14,7 +14,7 @@ class FEVERDocumentDatabase(object):
     @staticmethod
     def connect(path:str):
         try:
-            return sqlite3.connect(path)
+            return sqlite3.connect(path, check_same_thread=False)
         except sqlite3.Error as e:
             logging.exception(e)
             logging.critical("Unable to load sqlite database")
@@ -41,4 +41,11 @@ class FEVERDocumentDatabase(object):
         results = [result[0] for result in cursor.fetchall()]
         cursor.close()
 
+        return results
+
+    def get_non_empty_doc_ids(self):
+        cursor = self._connection.cursor()
+        cursor.execute("SELECT id FROM documents WHERE length(trim(text)) > 0")
+        results = [r[0] for r in cursor.fetchall()]
+        cursor.close()
         return results
